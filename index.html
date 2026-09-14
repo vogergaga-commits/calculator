@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>calculator by gagin</title>
+    <title>Calculator by Gagin</title>
     <style>
         * {
             margin: 0;
@@ -12,42 +12,52 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #1a1a1a;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 100, 0, 0.1) 0%, transparent 50%);
         }
 
         h1 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 28px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #ffa500;
+            margin-bottom: 25px;
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
         }
 
         .calculator {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            width: 320px;
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 
+                0 0 40px rgba(255, 165, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            width: 340px;
+            border: 1px solid #3a3a3a;
         }
 
         .display {
-            background: #f5f5f5;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            padding: 20px;
-            font-size: 32px;
+            background: #0f0f0f;
+            border: 2px solid #ffa500;
+            border-radius: 8px;
+            padding: 25px 20px;
+            font-size: 36px;
             text-align: right;
             width: 100%;
             margin-bottom: 20px;
             outline: none;
             font-weight: bold;
-            color: #333;
+            color: #ffa500;
+            font-family: 'Courier New', monospace;
+            box-shadow: inset 0 0 15px rgba(255, 165, 0, 0.2);
         }
 
         .buttons {
@@ -58,48 +68,72 @@
 
         button {
             border: none;
-            border-radius: 10px;
-            padding: 20px;
-            font-size: 20px;
+            border-radius: 8px;
+            padding: 22px;
+            font-size: 22px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s;
             font-weight: bold;
+            font-family: 'Courier New', monospace;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
         }
 
         button:active {
-            transform: translateY(0);
+            transform: scale(0.95);
         }
 
         .btn-number {
-            background: #f0f0f0;
-            color: #333;
+            background: #3a3a3a;
+            color: #ffffff;
+            border: 1px solid #4a4a4a;
+        }
+
+        .btn-number:hover {
+            background: #4a4a4a;
         }
 
         .btn-operator {
-            background: #667eea;
-            color: white;
+            background: #ffa500;
+            color: #1a1a1a;
+        }
+
+        .btn-operator:hover {
+            background: #ffb733;
         }
 
         .btn-clear {
-            background: #ff6b6b;
+            background: #ff4444;
             color: white;
             grid-column: span 2;
         }
 
+        .btn-clear:hover {
+            background: #ff5555;
+        }
+
         .btn-equals {
-            background: #51cf66;
+            background: #00cc66;
             color: white;
             grid-column: span 2;
+        }
+
+        .btn-equals:hover {
+            background: #00dd77;
+        }
+
+        .footer {
+            color: #666;
+            margin-top: 20px;
+            font-size: 12px;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
-    <h1>calculator by gagin</h1>
+    <h1>Calculator by Gagin</h1>
     <div class="calculator">
         <input type="text" class="display" id="display" readonly>
         <div class="buttons">
@@ -127,6 +161,7 @@
             <button type="button" class="btn-equals" onclick="calculate()">=</button>
         </div>
     </div>
+    <div class="footer">© 2026 GAGIN</div>
 
     <script>
         let display = document.getElementById('display');
@@ -157,10 +192,8 @@
             if (currentInput === '') return;
             
             try {
-                // Безопасное вычисление без eval
                 let expression = currentInput.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
                 
-                // Проверка что выражение содержит только цифры и операторы
                 if (!/^[\d+\-*/.() ]+$/.test(expression)) {
                     display.value = 'Ошибка';
                     currentInput = '';
@@ -173,7 +206,6 @@
                     display.value = 'Ошибка';
                     currentInput = '';
                 } else {
-                    // Округляем до 10 знаков после запятой
                     result = Math.round(result * 10000000000) / 10000000000;
                     display.value = result;
                     currentInput = result.toString();
@@ -184,7 +216,6 @@
             }
         }
 
-        // Поддержка клавиатуры
         document.addEventListener('keydown', function(event) {
             if (event.key >= '0' && event.key <= '9') {
                 appendNumber(event.key);
